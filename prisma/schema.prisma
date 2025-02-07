@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      String   @default("ADMIN")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Image {
+  id        String   @id @default(cuid())
+  name      String
+  path      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  item      Item[]
+}
+model Category {
+  id        String   @id @default(cuid())
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  items     Item[]
+}
+
+model Item {
+  id                   String   @id @default(cuid())
+  name                 String
+  supname              String?
+  itemClass            String?
+  league               String?
+  owner                String?
+  description          String?
+  shortDescription     String?
+  categoryId           String
+  fee                  String?
+  rarity               String?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  itemLevel            String?
+  category             Category @relation(fields: [categoryId], references: [id])
+  image                Image?   @relation(fields: [imageId], references: [id])
+  imageId              String?  @unique
+}
+

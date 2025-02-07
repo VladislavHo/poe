@@ -1,0 +1,190 @@
+.main {
+  padding: 20px 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+
+    input {
+      max-width: 420px;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0);
+      outline: none;
+      font-size: 1rem;
+      border: none;
+      border-bottom: 1px solid rgb(194, 123, 23);
+      padding: 5px;
+      letter-spacing: 1.8px;
+      color: rgb(198, 164, 116);
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      font-family: Teko, Teko Fallback;
+    }
+    button{
+      background-color: rgb(194, 123, 23);
+      padding: 5px 10px;
+      border-radius: 4px;
+      border: none;
+      color: #fff;
+      font-size: .7rem;
+    }
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+    grid-template-rows: auto;
+
+    .card {
+      // max-width: 300px;
+      // background-color: rgba(7, 7, 31, 0.418);
+      display: flex;
+      gap: 30px;
+      // border: 2px solid gold;
+      padding: 2px;
+      border-radius: 12px;
+      position: relative;
+
+      .btn--controller {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        gap: 10px;
+
+        button {
+          width: 25px;
+          height: 25px;
+          cursor: pointer;
+          border: none;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 4px;
+        }
+
+        .edit {
+          background-color: rgb(194, 123, 23);
+        }
+
+        .delete {
+          background-color: rgb(240, 61, 61);
+        }
+
+      }
+
+      &-image--container {
+        width: 120px;
+        // height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(12, 17, 46);
+        border-radius: 6px;
+        border: 2px solid rgba(212, 139, 13, 0.623);
+        cursor: pointer;
+
+        img {
+          width: auto;
+          height: auto;
+        }
+      }
+
+      &-info {
+        padding: 10px 0;
+        display: flex;
+        // flex-direction: column;
+        text-align: center;
+        justify-content: space-between;
+        flex-direction: column;
+        gap: 5px;
+
+        &--name {
+          .name {
+            letter-spacing: 1.8px;
+            color: rgb(198, 164, 116);
+            font-size: 1.5rem;
+            line-height: 1.2rem;
+          }
+
+          .supname {
+            font-size: 1rem;
+            letter-spacing: 1.6px;
+            color: rgb(194, 123, 23);
+          }
+        }
+
+        &--fee {
+          font-size: 0.9rem;
+
+          &-text {
+
+            // color: rgb(194, 123, 23);
+            span {
+              margin-left: 5px;
+              margin-right: 5px;
+            }
+
+            img {
+              width: auto;
+              height: auto;
+              position: relative;
+              top: 3px;
+            }
+          }
+        }
+
+        &--class {
+          .item-class--text {
+            font-size: 1.4rem;
+            color: rgb(194, 123, 23);
+            line-height: 1.2rem;
+          }
+
+          .short--text {
+            font-size: 0.9rem;
+            color: rgb(198, 164, 116);
+          }
+        }
+
+        &--owner {
+          .owner--text {
+            font-size: 1.4rem;
+            color: rgb(194, 123, 23);
+            line-height: 1rem;
+          }
+
+          .short--text {
+            font-size: 0.9rem;
+            color: rgb(198, 164, 116);
+          }
+        }
+
+        &--btn {
+          display: flex;
+          justify-content: center;
+          gap: 10px;
+
+          button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            background-color: rgb(194, 123, 23);
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: none;
+            color: #fff;
+            font-size: .7rem;
+          }
+        }
+      }
+    }
+  }
+}
