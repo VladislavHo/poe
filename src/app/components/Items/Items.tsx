@@ -6,11 +6,13 @@ import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation'
 import { deleteItems, getItems } from '@/app/api/request/items';
 import "./items.scss"
+import { Item, ItemWithId } from '@/app/types/item';
+// import { Item } from '@prisma/client';
 
 export default function Items() {
   const session = useSession();
-  const [items, setItems] = useState<any>([]);
-  const [filteredItems, setFilteredItems] = useState<any>([]);
+  const [items, setItems] = useState<Item[]>([]);
+  const [filteredItems, setFilteredItems] = useState<Item[]>([]);
   const [filter, setFilter] = useState<string>('');
 
   useEffect(() => {
@@ -22,9 +24,9 @@ export default function Items() {
 
   useEffect(() => {
     // Фильтрация элементов по имени и супер имени
-    const results = items.filter(item =>
-      item.name.toLowerCase().includes(filter.toLowerCase()) ||
-      item.supname.toLowerCase().includes(filter.toLowerCase())
+    const results = items.filter((item: Item) =>
+      item?.name.toLowerCase().includes(filter.toLowerCase()) ||
+      (item.supname && item.supname.toLowerCase().includes(filter.toLowerCase()))
     );
     setFilteredItems(results);
   }, [filter, items]);
@@ -44,15 +46,17 @@ export default function Items() {
         </form>
         <div className="cards">
           {
-            filteredItems && filteredItems.map((item: any) => (
-              <div className='card' key={item.id}>
+            filteredItems && (filteredItems as ItemWithId[]).map((item) => (
+              <div className='card' key={item.id}>Item
                 {
                   session.status === "authenticated" && (
                     <div className="btn--controller">
                       <button type='button' className='edit' onClick={() => { redirect(`/dashboard/edit-item/${item.id}`) }}>
                         <Edit_SVG />
                       </button>
-                      <button className='delete' onClick={() => deleteItems(item.id)}>
+                      <button className='delete' onClick={() => {
+                        deleteItems(item.id)
+                      }}>
                         <Delete_SVG />
                       </button>
                     </div>
@@ -61,7 +65,7 @@ export default function Items() {
 
                 <div className="card-image--container">
                   <Image
-                    src={`/uploads/${item.image.name}`}
+                    src={`/uploads/${item?.image.name}`}
                     alt={item.name}
                     layout="auto"
                     width={50}
@@ -97,7 +101,7 @@ export default function Items() {
             ))
           }
         </div>
-      </section>
+      </section >
 
 
     </>

@@ -1,6 +1,6 @@
 
 
-export const deleteItems = async (id: number) => {
+export const deleteItems = async (id: string | undefined) => {
   try {
     await fetch(`/api/items/delete?id=${id}`, {
       method: 'DELETE',
@@ -37,7 +37,7 @@ export const getItems = async () => {
     }
   }
 };
-export const getItem = async ({ id }: { id: number }) => {
+export const getItem = async ({ id }: { id: string }) => {
   try {
     const response = await fetch(`/api/items?id=${id}`);
     const data = await response.json();

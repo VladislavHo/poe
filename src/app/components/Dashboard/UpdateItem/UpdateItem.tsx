@@ -8,22 +8,22 @@ import { useSession } from 'next-auth/react';
 import { getItem } from '@/app/api/request/items';
 import { redirect } from 'next/navigation';
 import './update.scss';
-export default function UpdateItem({ id }: { id: number }) {
+export default function UpdateItem({ id }: { id: string }) {
   const session = useSession();
-  const [items, setItems] = useState<any>([]);
-  const { register, handleSubmit, setValue } = useForm<any>({
+  const [items, setItems] = useState<Item | null>(null);
+  const { register, handleSubmit, setValue } = useForm<Item>({
     defaultValues: {
-      name: items.name,
-      supname: items.supname,
-      league: items.league,
-      owner: items.owner,
-      description: items.description,
-      shortDescription: items.shortDescription,
-      categoryId: items.categoryId,
-      itemLevel: items.itemLevel,
-      fee: items.fee,
-      itemClass: items.itemClass,
-      rarity: items.rarity,
+      name: items?.name,
+      supname: items?.supname,
+      league: items?.league,
+      owner: items?.owner,
+      description: items?.description,
+      shortDescription: items?.shortDescription,
+      categoryId: items?.categoryId,
+      itemLevel: items?.itemLevel,
+      fee: items?.fee,
+      itemClass: items?.itemClass,
+      rarity: items?.rarity,
 
     }
   });

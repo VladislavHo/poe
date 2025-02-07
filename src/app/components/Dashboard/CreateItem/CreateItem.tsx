@@ -1,23 +1,34 @@
 "use client";
-import React, { useState } from 'react'
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from 'react'
+import { useForm, SubmitHandler  } from "react-hook-form";
 
 import { Item } from '@/app/types/item';
 import Image from 'next/image';
 import './create_item.scss'
-export default function ModalCreateItem() {
-  const { register, handleSubmit } = useForm<any>();
+import { redirect } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
-  const [uploading, setUploading] = useState(false);
+
+
+
+export default function ModalCreateItem() {
+  const { register, handleSubmit } = useForm<Item>();
+  const session = useSession();
+
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [imageId, setImageId] = useState<string | null>(null);
-  const onSubmit = async (data: Item) => {
+
+    useEffect(() => {
+      if (session.status === "unauthenticated") {
+        redirect("/")
+      }
+    }, [session]);
+  const onSubmit: SubmitHandler<Item> = async (data: Item) => {
     const newData = { ...data, imageId };
-    console.log(newData);
 
     await fetch('/api/items/create', {
       method: 'POST',
@@ -29,14 +40,14 @@ export default function ModalCreateItem() {
   }
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]; // Получаем первый файл из выбранных
+    const file = event.target.files?.[0];
     if (file) {
       setSelectedImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImagePreview(reader.result as string); // Устанавливаем предварительный просмотр
+        setImagePreview(reader.result as string);
       };
-      reader.readAsDataURL(file); // Читаем файл как URL
+      reader.readAsDataURL(file);
     }
   };
 
@@ -67,21 +78,20 @@ export default function ModalCreateItem() {
         setError(data.error);
         setMessage(null); // Сбрасываем сообщение
       }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       setError("An error occurred. Please try again.");
-      setMessage(null); // Сбрасываем сообщение
-    } finally {
-      setUploading(false);
+      setMessage(null);
     }
   };
   return (
     <>
       <div className="create_field">
         <div className="create_field__input">
-          <button className='prev' onClick={()=> window.history.back()}><span>Prev</span></button>
+          <button className='prev' onClick={() => window.history.back()}><span>Prev</span></button>
           <form onSubmit={handleSubmit(onSubmit)}>
             <input {...register("name")} placeholder="Name" required />
-            <input {...register("supname")} placeholder="Supname" required/>
+            <input {...register("supname")} placeholder="Supname" required />
             <input {...register("league")} placeholder="League" />
             <input {...register("owner")} placeholder="Owner" />
             <textarea {...register("description")} placeholder="Description" required />
@@ -101,11 +111,11 @@ export default function ModalCreateItem() {
               <option value="10">Shield(s)</option>
 
             </select>
-            <input {...register("itemClass")} placeholder="Item Class"  />
-            <input {...register("rarity")} placeholder="Rarity"  />
-            <input type="number" {...register("fee")} placeholder="Fee"  />
+            <input {...register("itemClass")} placeholder="Item Class" />
+            <input {...register("rarity")} placeholder="Rarity" />
+            <input type="number" {...register("fee")} placeholder="Fee" />
             {/* <input {...register("requirements")} placeholder="Requirements" /> */}
-            <input type="number" {...register("itemLevel")} placeholder="Item Level"  />
+            <input type="number" {...register("itemLevel")} placeholder="Item Level" />
             {/* <input {...register("implicitEffects")} placeholder="Implicit Effects" /> */}
             {/* <input {...register("additionalStatistics")} placeholder="Additional Statistics" /> */}
             <button className='added-item--btn' disabled={imageId === null} type="submit"><span>Add Item</span></button>
@@ -121,10 +131,10 @@ export default function ModalCreateItem() {
               required
             />
             {imagePreview &&
-            <div className="image--container">
+              <div className="image--container">
 
-              <Image src={imagePreview} alt="Image preview" width={150} height={150} />
-            </div>
+                <Image src={imagePreview} alt="Image preview" width={150} height={150} />
+              </div>
 
             }
             <button disabled={imagePreview === null} type="submit">

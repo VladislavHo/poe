@@ -35,7 +35,7 @@ export  async function POST(req: Request) {
       return new Response(JSON.stringify({ message: "Password changed successfully" }), { status: 200 });
 
     } catch (error) {
-      return new Response(JSON.stringify({ error: "Error changing password" }), { status: 500 });
+      return new Response(JSON.stringify({ error: error as string }), { status: 500 });
     }
 
 }
