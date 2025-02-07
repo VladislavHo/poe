@@ -23,8 +23,7 @@ export default function Items() {
   }, []);
 
   useEffect(() => {
-    // Фильтрация элементов по имени и супер имени
-    const results = items.filter((item: Item) =>
+    const results = items && items.filter((item: Item) =>
       item?.name.toLowerCase().includes(filter.toLowerCase()) ||
       (item.supname && item.supname.toLowerCase().includes(filter.toLowerCase()))
     );
