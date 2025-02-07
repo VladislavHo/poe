@@ -11,11 +11,6 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-<<<<<<< HEAD
-  // directUrl = env("POSTGRES_URL_NON_POOLING")
-=======
-  directUrl = env("POSTGRES_URL_NON_POOLING")
->>>>>>> 8b821fd36e3353db3de3b8c857077e2eeed457fe
 }
 
 model Admin {
