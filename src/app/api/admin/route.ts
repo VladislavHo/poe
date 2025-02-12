@@ -1,12 +1,13 @@
-import prisma from '../../lib/prisma'
+
+import prisma from '../../../../lib/prisma'
 
 import bcrypt from 'bcrypt';
 
 
 export async function POST(req: Request) {
-  const { email, password } = await req.json(); // Получаем данные из тела запроса
+  const { email, password } = await req.json() 
 
-  // Проверка наличия email и password
+
   if (!email || !password) {
     return new Response(JSON.stringify({ message: 'Email и пароль обязательны' }), {
       status: 400,
@@ -15,12 +16,12 @@ export async function POST(req: Request) {
   }
 
   try {
-    // Поиск администратора по email
+
     const admin = await prisma.admin.findUnique({
       where: { email },
     });
 
-    // Проверка, существует ли администратор
+
     if (!admin) {
       return new Response(JSON.stringify({ message: 'Неверный email или пароль' }), {
         status: 401,

@@ -19,8 +19,9 @@ const SignIn = () => {
     await signIn("credentials", {
       email: formData.get("email"),
       password: formData.get("password"),
-      redirect: true,
+      redirect: false,
       callbackUrl: "/dashboard",
+   
     });
 
   };

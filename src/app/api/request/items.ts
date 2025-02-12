@@ -1,3 +1,4 @@
+import { Item, ItemWithId } from "@/app/types/item";
 
 
 export const deleteItems = async (id: string | undefined) => {
@@ -5,9 +6,12 @@ export const deleteItems = async (id: string | undefined) => {
     await fetch(`/api/items/delete?id=${id}`, {
       method: 'DELETE',
     });
-    getItems();
+
+    return {
+      error: null,
+      status: 200
+    }
   } catch (error) {
-    console.log(error);
     return {
       error,
       status: 500
@@ -61,12 +65,20 @@ export const getItem = async ({ id }: { id: string }) => {
 };
 
 
-export const editItems = async (id: number) => {
+export const editItems = async ({ data }: { data: ItemWithId }) => {
   try {
-    await fetch(`/api/items/edit/${id}`, {
+    await fetch(`/api/items/edit?id=${data.id}`, {
       method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ...data }),
     });
-    getItems();
+
+    return {
+      error: null,
+      status: 200
+    }
   } catch (error) {
     return {
       error,
@@ -74,4 +86,25 @@ export const editItems = async (id: number) => {
     }
   }
 };
+
+export const createItem = async ({ data }: { data: Item }) => {
+  try {
+    await fetch(`/api/items/create`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+    return {
+      error: null,
+      status: 200
+    }
+  } catch (error) {
+    return {
+      error,
+      status: 500
+    }
+  }
+};
+
+
+
 

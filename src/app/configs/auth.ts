@@ -1,7 +1,7 @@
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
-import  prisma  from "@/app/lib/prisma";
+
+import prisma from "../../../lib/prisma";
 import { compare, hashSync } from "bcrypt";
 
 
@@ -11,18 +11,6 @@ import { compare, hashSync } from "bcrypt";
 
 export const authConfig: AuthOptions = {
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      profile(profile) {
-        return {
-          id: profile.sub,
-          name: profile.name || profile.login,
-          email: profile.email,
-          image: profile.picture,
-        };
-      }
-    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -31,7 +19,6 @@ export const authConfig: AuthOptions = {
         password: { label: "Password", type: "password", requered: true },
       },
       async authorize(credentials) {
-
 
         if (!credentials) {
           return null;
@@ -54,11 +41,6 @@ export const authConfig: AuthOptions = {
         if (!isPasswordValid) {
           return null;
         }
-
-        // if (!findUser.verified) {
-        //   return null;
-        // }
-
         return {
           id: admin.id,
           email: admin.email,
@@ -66,6 +48,7 @@ export const authConfig: AuthOptions = {
 
         };
       },
+
     }),
   ],
 
@@ -113,14 +96,10 @@ export const authConfig: AuthOptions = {
 
             password: hashSync(user.id.toString(), 10),
 
-          
+
           }
         })
 
-
-
-
-        // return true
       } catch (error) {
         console.log(error)
         return false

@@ -1,0 +1,89 @@
+.buff {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 305px;
+  background-color: rgba(26, 28, 21, 0.92);
+  position: absolute;
+  top: -25%;
+  left: 25%;
+  z-index: 100;
+  pointer-events: none;
+  border-radius:  0 0 10px 10px;
+
+  .title {
+    width: 100%;
+    background-image: url(/img/buff.webp);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    padding: 0 10px;
+    h3 {
+      color: rgb(197, 160, 24);
+      font-size: 1rem;
+      text-transform: none;
+      letter-spacing: 3px;
+    }
+
+    p {
+      color: rgb(197, 160, 24);
+      font-size: 0.9rem;
+      text-transform: none;
+      letter-spacing: 2px;
+    }
+  }
+
+  .number--buff {
+    text-align: center;
+
+    p {
+      color: rgb(123, 117, 108);
+      font-size: 0.8rem;
+      text-transform: none;
+      letter-spacing: 1.5px;
+
+      span {
+        color: rgb(119, 133, 255);
+      }
+    }
+  }
+
+  .liener {
+    width: 70%;
+    margin: 0 auto;
+    height: 3px;
+    background-color: rgb(91, 72, 4);
+    border-radius: 70%;
+    box-shadow: 0 0 0 0.5px rgb(0, 0, 0) inset;
+  }
+
+  .lvl--buff {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 1px;
+
+    p {
+      color: rgb(123, 117, 108);
+      font-size: 0.8rem;
+      text-transform: none;
+      letter-spacing: 1.5px;
+
+      span {
+        color: white; // Унаследуем цвет от родительского элемента
+      }
+    }
+  }
+
+  .buff--text-1, .buff--text-2 {
+    text-align: center;
+
+    p {
+      color: rgb(119, 133, 255);
+      font-size: 0.8rem;
+      text-transform: none;
+      letter-spacing: 1.5px;
+    }
+  }
+}

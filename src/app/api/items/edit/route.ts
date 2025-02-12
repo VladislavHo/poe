@@ -1,4 +1,8 @@
+import { authConfig } from "@/app/configs/auth";
 import { PrismaClient } from "@prisma/client";
+
+import { getServerSession } from "next-auth";
+
 
 
 
@@ -6,9 +10,17 @@ const prisma = new PrismaClient();
 
 export async function PUT(req: Request) {
   const data = await req.json();
-  const url = new URL(req.url);
+  const id = req.url.split("id=")[1];
 
-  const id = url.searchParams.get("id");
+
+  const session = await getServerSession(authConfig);
+
+
+  if (!session) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
+  }
+
+
 
   if (typeof id === "string") {
     try {

@@ -21,13 +21,16 @@ body {
 
 }
 
-header,
+/* header,
 main,
 footer {
   max-width: 1280px;
   margin: 0 auto;
-}
+} */
 
+main{
+  height: 100%;
+}
 /* Add any additional resets as needed */
 
 p,
@@ -45,3 +48,12 @@ span {
 button{
   cursor: pointer;
 }
+
+/* .background-container {
+  width: 100%;
+  height: 100vh;
+
+
+  z-index: -2;
+
+} */

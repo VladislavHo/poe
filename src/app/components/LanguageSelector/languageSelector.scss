@@ -1,0 +1,73 @@
+select {
+  cursor: pointer;
+  width: 100%;
+  background-color: rgba(72, 78, 119, 0.911);
+  outline: none;
+
+  border: none;
+
+  padding: 10px 7px 10px 10px;
+  border-radius: 2px;
+  color: #faebd7;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-family: Teko, Teko Fallback;
+}
+
+.select{
+  width: 100px;
+  position: relative;
+
+  .select-selected{
+    background-color: rgba(72, 78, 119, 0.911);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 7px 10px 10px;
+    gap: 10px;
+    border-radius: 2px;
+    color: #faebd7;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-family: Teko, Teko Fallback;
+    svg{
+      width: 20px;
+      height: 20px;
+    }
+  }
+  .select-items{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    gap: 10px;
+    background-color: rgba(72, 78, 119, 0.911);
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border-radius: 2px;
+    color: #faebd7;
+    font-size: 1rem;
+    cursor: pointer;
+    .select-item{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 7px 10px 10px;
+      border-radius: 2px;
+      color: #faebd7;
+      font-size: 1rem;
+      text-transform: uppercase;
+      font-family: Teko, Teko Fallback;
+      svg{
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+  }
+}

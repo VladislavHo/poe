@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 import { PrismaClient } from '@prisma/client';
+import { getServerSession } from 'next-auth/next';
+import { authConfig } from '@/app/configs/auth';
 
 const prisma = new PrismaClient();
 
@@ -14,6 +16,14 @@ export const config = {
 export async function POST(request: Request) {
   const formData = await request.formData();
   const file = formData.get('image') as File;
+
+
+  const session = await getServerSession(authConfig);
+
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
 
   if (!file) {
     return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
@@ -60,15 +70,15 @@ export async function POST(request: Request) {
       name: file.name,
       path: filePath,
     });
- 
-      const newImage = await prisma.image.create({
-        data: {
-          name: file.name,
-          path: filePath
-        }
-      })
 
-      console.log(newImage);
+    const newImage = await prisma.image.create({
+      data: {
+        name: file.name,
+        path: filePath
+      }
+    })
+
+    console.log(newImage);
 
 
 

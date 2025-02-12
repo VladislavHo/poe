@@ -1,12 +1,20 @@
-// import { NextApiRequest, NextApiResponse } from 'next'
-import prisma from '@/app/lib/prisma'
+
+import prisma from '../../../../../lib/prisma'
 
 import bcrypt from 'bcrypt';
 
-export async function POST(req: Request) {
-  const { email, password } = await req.json(); // Получаем данные из тела запроса
+import { authConfig } from '@/app/configs/auth';
+import { getServerSession } from 'next-auth';
 
-  // Проверка наличия email и password
+export async function POST(req: Request) {
+  const session = await getServerSession(authConfig);
+
+  if (!session) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+  }
+  const { email, password } = await req.json();
+
+
   if (!email || !password) {
     return new Response(JSON.stringify({ message: 'Email и пароль обязательны' }), {
       status: 400,
@@ -14,11 +22,14 @@ export async function POST(req: Request) {
     });
   }
 
-  // Хэширование пароля
+
   const hashedPassword = await bcrypt.hash(password, 10);
 
+  if (!hashedPassword) {
+    throw new Error('Password not hashed');
+  }
+
   try {
-    // Создание администратора
     const admin = await prisma.admin.create({
       data: {
         email,
@@ -31,8 +42,7 @@ export async function POST(req: Request) {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.error('Ошибка при создании администратора:', error);
-    return new Response(JSON.stringify({ message: 'Ошибка при создании администратора' }), {
+    return new Response(JSON.stringify({ message: 'Ошибка при создании администратора', error }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });

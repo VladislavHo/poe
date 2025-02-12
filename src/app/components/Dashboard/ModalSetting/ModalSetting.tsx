@@ -30,25 +30,6 @@ const ModalSetting = ({ stateModalChangePassword, setStateModalChangePassword }:
       }
     })
 
-    // try {
-    //   const response = await fetch('/api/admin/reset-password', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({ email, oldPassword, newPassword }),
-    //   });
-
-    //   const data = await response.json();
-
-    //   if (response.ok) {
-    //     setMessage(data.message);
-    //   } else {
-    //     setError(data.error);
-    //   }
-    // } catch (err) {
-    //   setError(err?.message ?? 'An error occurred. Please try again.');
-    // }
   };
 
   return (

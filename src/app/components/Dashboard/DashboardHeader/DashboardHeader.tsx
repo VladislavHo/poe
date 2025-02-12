@@ -4,6 +4,7 @@ import ModalSetting from '../ModalSetting/ModalSetting'
 import { signOut } from 'next-auth/react';
 import { redirect } from 'next/navigation'
 import "./header.scss"
+import Link from 'next/link';
 export default function DashboardHeader() {
   const [stateModalChangePassword, setStateModalChangePassword] = useState(false);
 
@@ -11,19 +12,23 @@ export default function DashboardHeader() {
 
   return (
     <div className="dashboard--header">
-      <div className="btn--container">
-        <button className='added--card--btn' onClick={()=> redirect("dashboard/create-item")}><span>added new Card</span></button>
-        <button className='change-password--btn' onClick={() => setStateModalChangePassword(true)}><span>Change password</span></button>
-        <button className='logout--btn' onClick={() => {
-          signOut()
-        }}><span>Logout</span></button>
+      <div className="l-dashboard--header">
+        <Link href="/"><span>Home page</span></Link>
+        <div className="btn--container">
+          <button className='added--card--btn' onClick={() => redirect("dashboard/create-item")}><span>added new Card</span></button>
+          <button className='change-password--btn' onClick={() => setStateModalChangePassword(true)}><span>Change password</span></button>
+          <button className='logout--btn' onClick={() => {
+            signOut()
+          }}><span>Logout</span></button>
 
+        </div>
+
+        {
+          stateModalChangePassword && <ModalSetting stateModalChangePassword={stateModalChangePassword} setStateModalChangePassword={setStateModalChangePassword} />
+
+        }
       </div>
 
-      {
-        stateModalChangePassword && <ModalSetting stateModalChangePassword={stateModalChangePassword} setStateModalChangePassword={setStateModalChangePassword} />
-
-      }
     </div>
   )
 }

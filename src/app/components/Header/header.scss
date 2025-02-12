@@ -1,16 +1,37 @@
-header{
-  max-width: 1280px;
+.header{
+  width: 100%;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 20px;
   padding: 5px 2px;
-  .logo{
+  position: absolute;
+  top: calc(50vh + 55px);
+  z-index: 100;
+
+
+  nav{
+    // max-width: 250px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    img{
-      width: auto;
-      height: auto;
+    justify-content: space-between;
+    gap: 30px;
+    a{
+      text-decoration: none;
+      background-color: rgba(72, 78, 119, 0.911);
+      padding: 10px 40px;
+      border-radius: 2px;
     }
   }
+}
+
+.fixed{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgba(72, 78, 119, 0.22);;
+  backdrop-filter: blur(4px);
+  box-shadow: 0px -40px 62px 19px rgba(15, 22, 52, 0.798);
 }
