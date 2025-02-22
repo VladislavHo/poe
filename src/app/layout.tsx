@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
-import { Teko } from "next/font/google";
+
 import "./globals.css";
 
 import { Provider } from "./components/Provider/Provider";
 
-const teko = Teko({
-  // variable: "--font-geist-sans",
-  subsets: ["latin"],
-  weight: ["300"],
-});
+
 
 
 export const metadata: Metadata = {
@@ -23,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={teko.className}>
+      <body>
         <Provider>
           {children}
         </Provider>

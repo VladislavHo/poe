@@ -3,15 +3,15 @@ import prisma from '../../../../../lib/prisma'
 
 import bcrypt from 'bcrypt';
 
-import { authConfig } from '@/app/configs/auth';
-import { getServerSession } from 'next-auth';
+// import { authConfig } from '@/app/configs/auth';
+// import { getServerSession } from 'next-auth';
 
 export async function POST(req: Request) {
-  const session = await getServerSession(authConfig);
+  // const session = await getServerSession(authConfig);
 
-  if (!session) {
-    return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
-  }
+  // if (!session) {
+  //   return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
+  // }
   const { email, password } = await req.json();
 
 

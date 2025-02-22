@@ -9,6 +9,8 @@ const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   const data = await req.json();
+
+
   const session = await getServerSession(authConfig);
 
   if (!session) {
@@ -19,7 +21,7 @@ export async function POST(req: Request) {
     const item = await prisma.item.create({
       data
     });
-
+    
     if (!item) {
       throw new Error('Item not created');
     }

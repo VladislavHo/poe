@@ -36,8 +36,7 @@ export async function PUT(req: Request) {
 
       return new Response(JSON.stringify(item), { status: 201 });
     } catch (error) {
-      console.log(error);
-      return new Response(JSON.stringify({ message: 'Item not updated' }), { status: 500 });
+      return new Response(JSON.stringify({ message: 'Item not updated', error }), { status: 500 });
     }
   }
 

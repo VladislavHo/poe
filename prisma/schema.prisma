@@ -40,40 +40,19 @@ model Category {
 }
 
 model Item {
-  id               String  @id @default(cuid())
+  id               String   @id @default(cuid())
   name             String
-  supname          String?
+  subname          String
+  description      String
   fee              String?
-  itemClass        String?
-  league           String?
+  sockets          String?
   owner            String?
-  description      String?
+  className        String?
   shortDescription String?
   categoryId       String
-  rarity           String?
-
-  category        Category @relation(fields: [categoryId], references: [id])
-  image           Image?   @relation(fields: [imageId], references: [id])
-  imageId         String?  @unique
-  socket          String?
-  evasion         String?
-  str             String?
-  quality         String?
-  armour          String?
-  int             String?
-  dex             String?
-  energyShield    String?
-  requiresLevel   String?
-  physicalDamage  String?
-  strikeChange    String?
-  attackSeconds   String?
-  intBuff         String?
-  buff_0_html     String?
-  buff_1_html     String?
-  buff_2_html     String?
-  buff_white_html String?
-  buff_gold_html  String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  category         Category @relation(fields: [categoryId], references: [id])
+  image            Image    @relation(fields: [imageId], references: [id])
+  imageId          String   @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }

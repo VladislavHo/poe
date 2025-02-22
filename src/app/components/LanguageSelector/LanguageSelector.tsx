@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import './languageSelector.scss';
-import { Kingdom_SVG, Korea_SVG, Russia_SVG } from '../SVG/SVG';
+import { ARROW_SVG, Kingdom_SVG, Korea_SVG, Russia_SVG } from '../SVG/SVG';
 
 
 interface IOption {
@@ -39,14 +39,17 @@ export default function LanguageSelector() {
         onClick={toggleDropdown}
       >
         {selectedOption.svg}
-        <span >{selectedOption.label}</span>
+        <span className='arrow'>
+          <ARROW_SVG />
+        </span>
+        {/* <span >{selectedOption.label}</span> */}
       </div>
       {isOpen && (
         <div
           className="select-items"
         >
           {options.map((option, index) => {
-            if(option.id === selectedOption.id) return null
+            if (option.id === selectedOption.id) return null
             return (
               <div
                 className='select-item'
@@ -55,7 +58,7 @@ export default function LanguageSelector() {
 
               >
                 {option.svg}
-                <span>{option.label}</span>
+                {/* <span>{option.label}</span> */}
               </div>
             )
           })}

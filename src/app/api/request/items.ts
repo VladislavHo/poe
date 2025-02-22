@@ -30,13 +30,13 @@ export const getItems = async () => {
     }
     return {
       error: null,
-      items: data,
+      data: data,
       status: response.status
     };
   } catch (error) {
     return {
       error,
-      items: null,
+      data: null,
       status: 500
     }
   }
@@ -52,13 +52,13 @@ export const getItem = async ({ id }: { id: string }) => {
 
     return {
       error: null,
-      item: data,
+      data: data,
       status: response.status
     };
   } catch (error) {
     return {
       error,
-      item: null,
+      data: null,
       status: 500
     }
   }

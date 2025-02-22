@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { redirect } from 'next/navigation'
-import Copy_SVG, { Delete_SVG, Edit_SVG } from '../../SVG/SVG'
+import Copy_SVG, { Delete_SVG } from '../../SVG/SVG'
 import { deleteItems } from '@/app/api/request/items'
-import Buff from '../../Buff/Buff'
-import Socket from '../../Sockets/Socet/Socket'
 import Notification from '../../Notification/Notification'
-
-import "./card.scss"
 import { ItemWithCategory, ItemWithCategoryAndImage } from '@/app/types/item'
 import { SessionContextValue } from 'next-auth/react'
+import 'poe-item-hover/dist/index.css';
+import { ItemHover } from 'poe-item-hover';
+import Socket from '../../Sockets/Socet/Socket'
+import "./card.scss"
+
 
 interface CardProps {
   item: ItemWithCategoryAndImage;
-  hoveredItemId: string | null | undefined;
-  setHoveredItemId: React.Dispatch<React.SetStateAction<string | null | undefined>>;
   session: SessionContextValue;
   setFilteredItems: React.Dispatch<React.SetStateAction<ItemWithCategory[]>>;
 }
@@ -22,7 +20,8 @@ interface CardProps {
 
 
 
-export default function Card({ item, hoveredItemId, setHoveredItemId, session, setFilteredItems }: CardProps) {
+export default function Card({ item, session, setFilteredItems }: CardProps) {
+  const [hovered, setHovered] = useState(false);
   const [isCopied, setIsCopied] = useState({
     POB: false,
     WHISPER: false
@@ -49,13 +48,10 @@ export default function Card({ item, hoveredItemId, setHoveredItemId, session, s
       }, 2000);
 
       if (isCopied.POB && isCopied.WHISPER) {
-        setSuccess({ message: `Copied to clipboard`, error: false, open: true });
-
       }
+      setSuccess({ message: `Copied to clipboard`, error: false, open: true });
     });
   };
-
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -63,7 +59,6 @@ export default function Card({ item, hoveredItemId, setHoveredItemId, session, s
     }, 3000);
     return () => clearTimeout(timer);
   }, [success.open]);
-
 
 
   return (
@@ -76,9 +71,7 @@ export default function Card({ item, hoveredItemId, setHoveredItemId, session, s
       <div className='card' key={item.id}>
         {session.status === "authenticated" && (
           <div className="btn--controller">
-            <button type='button' className='edit' onClick={() => redirect(`/dashboard/edit-item/${item?.id}`)}>
-              <Edit_SVG />
-            </button>
+
             <button className='delete' onClick={() => {
               deleteItems(item?.id).then((res) => {
                 if (res.status === 200) {
@@ -94,42 +87,50 @@ export default function Card({ item, hoveredItemId, setHoveredItemId, session, s
           </div>
         )}
 
-        {hoveredItemId === item.id && <Buff item={item} />}
+        <div className="description">
+          {hovered && <ItemHover itemData={`${item.description}`} />}
 
-        <div className="card-image--container"
-          onMouseEnter={() => setHoveredItemId(item?.id)}
-          onMouseLeave={() => setHoveredItemId(null)}>
+        </div>
 
-          {hoveredItemId === item?.id && <Socket socket={item?.socket ?? ''} />}
+        <div
+          className="card-image--container"
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+        >
+
+
+
+          {hovered && <Socket sockets={`${item.sockets?.toUpperCase()}`} />}
+          
 
           <Image
             src={`/uploads/${item?.image?.name}`}
-            alt={item?.name}
-            layout="auto"
-            width={50}
-            height={50}
+            alt={"Logo"}
+
+            width={65}
+            height={45}
           />
         </div>
 
         <div className="card-info">
           <div className="card-info--name">
-            <h3 className='name'>{item?.name}</h3>
-            <h4 className='supname'>{item?.supname}</h4>
+            <h3 className='name'>{item.name}</h3>
+            <h4 className='supname'>{item.subname}</h4>
           </div>
           <div className="card-info--fee">
-            <p className='card-info--fee-text'>fee: <span>{item?.fee}</span> <Image src="/img/fee.webp" alt="Logo" width={20} height={20} /></p>
+            <p className='card-info--fee-text'>fee: <span>{item.fee}</span> <Image src="/img/fee.webp" alt="Logo" width={20} height={20} /></p>
           </div>
           <div className="card-info--class">
-            <p className='item-class--text'>{item?.itemClass}</p>
-            <p className='short--text'>{item?.shortDescription}</p>
+            <p className='item-class--text'>{item.itemClass}</p>
+            <p className='short--text'>{item.shortDescription}</p>
           </div>
           <div className="card-info--owner">
             <p className='owner--text'>Owner</p>
-            <p className='owner--name'>{item?.owner}</p>
+            <p className='owner--name'>{item.owner}</p>
           </div>
           <div className="card-info--btn">
             <button className='pob' onClick={() => copyToClipboard(item?.description ?? '')}><span>POB</span> <Copy_SVG /></button>
-            <button className='whisper' onClick={() => copyToClipboard(`@EchoShop Hi, I'd like to mirror ${item?.name} ${item?.supname}`)}><span>WHISPER</span><Copy_SVG /></button>
+            <button className='whisper' onClick={() => copyToClipboard(`@EchoShop Hi, I'd like to mirror `)}><span>WHISPER</span><Copy_SVG /></button>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 select {
   cursor: pointer;
   width: 100%;
-  background-color: rgba(72, 78, 119, 0.911);
+   background-color: var(--white-blue);
   outline: none;
 
   border: none;
@@ -11,39 +11,48 @@ select {
   color: #faebd7;
   font-size: 1rem;
   text-transform: uppercase;
-  font-family: Teko, Teko Fallback;
+   
 }
 
 .select{
-  width: 100px;
+  width: 60px;
   position: relative;
 
   .select-selected{
-    background-color: rgba(72, 78, 119, 0.911);
+     background-color: var(--white-blue);
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 10px 7px 10px 10px;
+    justify-content: flex-start;
+    padding: 6px 7px 6px 10px;
     gap: 10px;
-    border-radius: 2px;
+    border-radius: 3px;
     color: #faebd7;
     font-size: 1rem;
     text-transform: uppercase;
-    font-family: Teko, Teko Fallback;
+      position: relative;
     svg{
       width: 20px;
       height: 20px;
     }
+    .arrow{
+      position: absolute;
+      right: 5px;
+      svg{
+        width: 15px;height: 15px;
+        rotate: 180deg;
+      }
+    }
   }
   .select-items{
     position: absolute;
+    right: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     
-    gap: 10px;
-    background-color: rgba(72, 78, 119, 0.911);
+    gap: 0;
+     background-color: var(--white-blue);
     top: 100%;
     left: 0;
     right: 0;
@@ -62,7 +71,7 @@ select {
       color: #faebd7;
       font-size: 1rem;
       text-transform: uppercase;
-      font-family: Teko, Teko Fallback;
+       
       svg{
         width: 20px;
         height: 20px;

@@ -9,7 +9,7 @@ export default function Main() {
   return (
     <>
       <Header />
-      <Intro />
+      <Intro title='settlers' section='main'/>
 
       <Items />
 

@@ -56,33 +56,12 @@ export async function POST(request: Request) {
     const buffer = await file.arrayBuffer();
     await fs.writeFile(filePath, Buffer.from(buffer));
 
-    console.log('File saved successfully:', filePath);
-    // Сохраняем путь к изображению в базе данных
-    // const newImage = await prisma.image.create({
-    //   data: {
-    //     name: file.name,
-    //     path: filePath,
-    //   },
-    // });
-
-    // const newImage = null
-    console.log('Data to be saved:', {
-      name: file.name,
-      path: filePath,
-    });
-
     const newImage = await prisma.image.create({
       data: {
         name: file.name,
         path: filePath
       }
     })
-
-    console.log(newImage);
-
-
-
-    // Проверяем, что newImage не равен null или undefined
 
 
     return NextResponse.json(newImage, { status: 200 });

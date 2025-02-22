@@ -25,3 +25,5 @@ export const CATEGORY_ID: ICategoryID = {
   quiver: '10',
   standart: '11'
 }
+
+export const DEFAULT_URL = 'http://localhost:3000/'

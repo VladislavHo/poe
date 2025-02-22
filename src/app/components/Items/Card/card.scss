@@ -1,9 +1,6 @@
 .card {
-  // max-width: 300px;
-  // background-color: rgba(7, 7, 31, 0.418);
   display: flex;
-  gap: 30px;
-  // border: 2px solid gold;
+  gap: 8px;
   padding: 2px;
   border-radius: 12px;
   position: relative;
@@ -37,9 +34,16 @@
 
   }
 
+  .description {
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    z-index: 1000;
+  }
+
   &-image--container {
-    width: 120px;
-    // height: 150px;
+    width: 140px;
+    height: 180px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -51,8 +55,8 @@
     position: relative;
 
     img {
-      width: auto;
-      height: auto;
+      // width: calc(auto);
+      // height: auto;
     }
   }
 
@@ -63,27 +67,31 @@
     text-align: center;
     justify-content: space-between;
     flex-direction: column;
-    gap: 5px;
+    gap: 2px;
+    margin: 0 auto;
 
     &--name {
       .name {
         letter-spacing: 1.8px;
         color: rgb(198, 164, 116);
-        font-size: 1.5rem;
+        font-size: 1rem;
         line-height: 1.2rem;
       }
 
       .supname {
-        font-size: 1rem;
+        font-size: .8rem;
         letter-spacing: 1.6px;
         color: rgb(194, 123, 23);
       }
     }
 
     &--fee {
-      font-size: 0.9rem;
+      font-size: 0.7rem;
 
       &-text {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
 
         // color: rgb(194, 123, 23);
         span {
@@ -92,8 +100,8 @@
         }
 
         img {
-          width: auto;
-          height: auto;
+          width: 15px;
+          height: 15px;
           position: relative;
           top: 3px;
         }
@@ -101,27 +109,31 @@
     }
 
     &--class {
+      max-width: 200px;
+      margin: 0 auto;
       .item-class--text {
-        font-size: 1.4rem;
+        font-size: .7rem;
         color: rgb(194, 123, 23);
         line-height: 1.2rem;
+        text-align: center;
       }
 
       .short--text {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         color: rgb(198, 164, 116);
+        text-align: center;
       }
     }
 
     &--owner {
       .owner--text {
-        font-size: 1.4rem;
+        font-size: .8rem;
         color: rgb(194, 123, 23);
         line-height: 1rem;
       }
 
       .short--text {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         color: rgb(198, 164, 116);
       }
     }
@@ -142,6 +154,13 @@
         border: none;
         color: #fff;
         font-size: .7rem;
+        outline: 2px solid rgb(194, 123, 23);
+        transition: all .2s ease-in-out;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0);
+          transition: all .2s ease-in-out;
+        }
       }
     }
   }

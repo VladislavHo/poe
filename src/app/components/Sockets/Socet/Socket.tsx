@@ -4,10 +4,9 @@ import React from 'react'
 import "./socket.scss"
 
 
-export default function Socket({ socket }: { socket: string }) {
+export default function Socket({ sockets }: { sockets: string }) {
 
-  const socketArray = socket && socket.split('-');
-
+  const socketArray = sockets && sockets.split('-');
 
   return (
     <div className="sockets--container">
@@ -17,7 +16,7 @@ export default function Socket({ socket }: { socket: string }) {
             if (item === "W") {
               return <div key={index} className="white"></div>
             }
-            if (item === "B") {
+            if (item === "A") {
               return <div key={index} className="black"></div>
             }
           })
